@@ -1,0 +1,16 @@
+select concat(dp_nom,' ',dp_app) from persona where semp=18 order by dp_nom
+
+select comida, count(comida),sum(precio) from hotel where fecha between '2016-05-01' and '2016-05-06' group by fecha,comida
+
+select date_format(fecha, '%W'), comida, count(comida),sum(precio) from hotel where comida='desayuno' and fecha between '2016-05-01' and '2016-05-06' group by fecha,comida
+
+select date_format(fecha, '%W'), comida, count(comida),sum(precio) from hotel where comida='cena' and fecha between '2016-05-01' and '2016-05-06' group by fecha,comida
+
+
+SELECT date_format(fecha, '%W') fecha, comida, count(comida) conteo,sum(precio) precio, CASE WHEN count(comida) BETWEEN 0 AND 35 then 0 WHEN count(comida) BETWEEN 35 AND 47 THEN (count(comida)-35) *precio ELSE 'err' END subtotal from hotel where fecha between '2016-05-01' and '2016-05-06' group by fecha,comida
+
+SELECT date_format(fecha, '%W') fecha, comida, count(comida) conteo, sum(precio) precio, CASE WHEN comida = 'desayuno' THEN '21' WHEN comida = 'comida' THEN '35' WHEN comida = 'cena' THEN '35' ELSE 'err' END pagadas, CASE WHEN count(comida) BETWEEN 0 AND 35 then 0 WHEN count(comida) BETWEEN 35 AND 47 THEN ( count(comida)-35 ) ELSE 'err' END extras, CASE WHEN count(comida) BETWEEN 0 AND 35 then 0 WHEN count(comida) BETWEEN 35 AND 47 THEN ( count(comida)-35 ) * precio ELSE 'err' END subtotal from hotel where fecha between '2016-05-01' and '2016-05-06' group by fecha, comida
+
+SELECT CASE WHEN count(comida) BETWEEN 0 AND 35 then 0 WHEN count(comida) BETWEEN 35 AND 47 THEN ( count(comida)-35 ) ELSE 'err' END extras,CASE WHEN count(comida) BETWEEN 0 AND 35 then 0 WHEN count(comida) BETWEEN 35 AND 47 THEN ( count(comida)-35 ) * precio ELSE 'err' END subtotal from hotel where fecha between '2016-05-01' and '2016-05-06' group by fecha, comida
+
+SELECT CASE WHEN count(comida) BETWEEN 0 AND 35 THEN 0 WHEN count(comida) BETWEEN 35 AND 47 THEN count(comida)-35 ELSE 'err' END extras, CASE WHEN count(comida) BETWEEN 0 AND 35 THEN 0 WHEN count(comida) BETWEEN 35 AND 47 THEN (count(comida)-35)* precio ELSE 'err' END subtotal from hotel where fecha between '2016-05-01' and '2016-05-06' group by fecha,comida
